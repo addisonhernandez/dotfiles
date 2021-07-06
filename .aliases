@@ -1,0 +1,5 @@
+# make pretty ls
+alias lx='ls -lhAXF --group-directories-first'
+
+# allow tmux to work with 256 colors
+alias tmux='tmux -2'

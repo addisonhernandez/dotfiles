@@ -1,3 +1,10 @@
 [user]
 	email = addison.hernandez@gmail.com
 	name = Addison Hernandez
+[core]
+	editor = vim
+	pager = 
+	excludesfile = /home/addison/.gitignore_global
+	autocrlf = input
+[help]
+	autocorrect = 50

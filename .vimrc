@@ -93,3 +93,5 @@ inoremap <Down>  <ESC>:echoe "Use j"<CR>
 " FZF Vim integration
 set rtp+=/usr/bin/fzf
 
+" powerline functionality
+set rtp+=/usr/share/powerline/bindings/vim

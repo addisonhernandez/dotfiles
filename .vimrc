@@ -86,3 +86,10 @@ inoremap <Left>  <ESC>:echoe "Use h"<CR>
 inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
+
+""" My own customizations """
+
+"" Plugins
+" FZF Vim integration
+set rtp+=/usr/bin/fzf
+

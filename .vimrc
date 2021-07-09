@@ -93,5 +93,7 @@ inoremap <Down>  <ESC>:echoe "Use j"<CR>
 " FZF Vim integration
 set rtp+=/usr/bin/fzf
 
-" powerline functionality
-set rtp+=/usr/share/powerline/bindings/vim
+" powerline/airline functionality
+" set rtp+=/usr/share/powerline/bindings/vim
+let g:airline_powerline_fonts = 1
+let g:airline_theme='molokai'

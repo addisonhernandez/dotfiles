@@ -8,3 +8,5 @@
 	autocrlf = input
 [help]
 	autocorrect = 50
+[credential]
+	helper = cache --timeout=7200

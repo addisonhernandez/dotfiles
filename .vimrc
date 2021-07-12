@@ -1,6 +1,5 @@
-" Comments in Vimscript start with a `"`.
-
-" If you open this file in Vim, it'll be syntax highlighted for you.
+" Initial .vimrc based on recommendations from MIT's missing-semester course.
+" Additional inspiration from vim-galore's minimal-vimrc
 
 " Vim is based on Vi. Setting `nocompatible` switches from the default
 " Vi-compatibility mode and enables useful Vim functionality. This
@@ -19,8 +18,26 @@ if exists('+termguicolors')
 endif
 colorscheme molokai
 
+set list		" Show non-printable characters.
+if has('multi_byte') && &encoding ==# 'utf-8'
+  let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
+else
+  let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
+endif
+
+set ttyfast		" fast(er) redrawing
+set lazyredraw		" only redraw when necessary
+
 " Turn on syntax highlighting.
 syntax on
+filetype plugin indent on " Load plugins according to detected filetype
+
+" Auto-indent
+set autoindent 		" Indent according to previous line
+set expandtab		" Uses spaces instead of tabs
+set softtabstop=2	" Tab key inserts 2 spaces
+set shiftwidth=2	" >> indents by 2 spaces
+set shiftround		" >> indents to next multiple of 'shiftwidth'
 
 " Disable the default Vim startup message.
 set shortmess+=I
@@ -58,8 +75,9 @@ set hidden
 set ignorecase
 set smartcase
 
-" Enable searching as you type, rather than waiting till you press enter.
-set incsearch
+set incsearch		" highlights as you search with / or ?
+set hlsearch		" keeps matches highlighted
+set wrapscan		" search wraps around end-of-file
 
 " Unbind some useless/annoying default key bindings.
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.

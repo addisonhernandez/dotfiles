@@ -81,10 +81,20 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
   git
   colored-man-pages
+  # colorize
   alias-finder
   command-not-found
   copybuffer
+  # encode64
   fzf
+  # profiles
+  ripgrep
+  # rsync
+  # shrink-path
+  # systemadmin
+  themes
+  urltools
+  zsh-interactive-cd
 )
 
 source $ZSH/oh-my-zsh.sh

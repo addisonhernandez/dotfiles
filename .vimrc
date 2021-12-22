@@ -16,7 +16,9 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-colorscheme molokai
+let g:gruvbox_contrast_dark = 'hard'
+set background=dark
+colorscheme gruvbox
 
 set list		" Show non-printable characters.
 if has('multi_byte') && &encoding ==# 'utf-8'
@@ -35,8 +37,8 @@ filetype plugin indent on " Load plugins according to detected filetype
 " Auto-indent
 set autoindent 		" Indent according to previous line
 set expandtab		" Uses spaces instead of tabs
-set softtabstop=2	" Tab key inserts 2 spaces
-set shiftwidth=2	" >> indents by 2 spaces
+set softtabstop=4	" Tab key inserts 4 spaces
+set shiftwidth=4	" >> indents by 4 spaces
 set shiftround		" >> indents to next multiple of 'shiftwidth'
 
 " Disable the default Vim startup message.
@@ -85,8 +87,7 @@ nmap Q <Nop>            " Enters Ex mode. You almost never want this.
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
-" Enable mouse support. You should avoid relying on this too much, but it can
-" sometimes be convenient.
+" Enable mouse support.
 set mouse+=a
 
 " Try to prevent bad habits like using the arrow keys for movement. This is
@@ -105,7 +106,7 @@ inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
-""" My own customizations """
+""" My own customizations
 
 "" Plugins
 " FZF Vim integration
@@ -114,4 +115,8 @@ set rtp+=/usr/bin/fzf
 " powerline/airline functionality
 " set rtp+=/usr/share/powerline/bindings/vim
 let g:airline_powerline_fonts = 1
-let g:airline_theme='molokai'
+let g:airline_theme='gruvbox'
+
+" NERDTree functionality
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif

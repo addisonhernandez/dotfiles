@@ -101,21 +101,21 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
 " ...and in insert mode
-inoremap <Left>  <ESC>:echoe "Use h"<CR>
-inoremap <Right> <ESC>:echoe "Use l"<CR>
-inoremap <Up>    <ESC>:echoe "Use k"<CR>
-inoremap <Down>  <ESC>:echoe "Use j"<CR>
+"inoremap <Left>  <ESC>:echoe "Use h"<CR>
+"inoremap <Right> <ESC>:echoe "Use l"<CR>
+"inoremap <Up>    <ESC>:echoe "Use k"<CR>
+"inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
 """ My own customizations
 
 "" Plugins
 " FZF Vim integration
-set rtp+=/usr/bin/fzf
+"set rtp+=/usr/bin/fzf
 
 " powerline/airline functionality
-" set rtp+=/usr/share/powerline/bindings/vim
-let g:airline_powerline_fonts = 1
-let g:airline_theme='gruvbox'
+set rtp+=/usr/share/powerline/bindings/vim
+"let g:airline_powerline_fonts = 1
+"let g:airline_theme='gruvbox'
 
 " NERDTree functionality
 " Exit Vim if NERDTree is the only window remaining in the only tab.

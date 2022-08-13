@@ -119,12 +119,12 @@ fi
 
 # Enable powerline functionality
 # Start with the performance daemon
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
+#powerline-daemon -q
+#POWERLINE_BASH_CONTINUATION=1
+#POWERLINE_BASH_SELECT=1
 
 # powerline bindings
-. /usr/share/powerline/bindings/bash/powerline.sh
+#. /usr/share/powerline/bindings/bash/powerline.sh
 
 # load NVM environment variables
 export NVM_DIR="$HOME/.nvm"
@@ -135,3 +135,6 @@ export NVM_DIR="$HOME/.nvm"
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
 
+# pnpm
+export PNPM_HOME="/home/addison/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"

@@ -101,9 +101,31 @@ nnoremap <Down>  :echoe "Use j"<CR>
 "inoremap <Up>    <ESC>:echoe "Use k"<CR>
 "inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
-""" My own customizations
 
-"" Plugins
+""" My customizations """
+
+"" Plugins ""
+
+" vim-plug
+call plug#begin()
+  " The default plugin directory will be:
+  "  - vim: '~/.vim/plugged'
+  "  - neovim: stdpath('data') . '/plugged'
+  " This can be customized by passing it as an argument:
+  "  - e.g. 'call plug#begin('~/.vim/path/to/plugins')
+  "  - avoid using standard vim directory names like 'plugin'
+
+  " Make sure to use single quotes to specify plugins!
+
+  " fish shell script highlighting and completion
+  Plug 'nickeb96/fish.vim'
+
+  " NERDTree file system explorer
+  Plug 'preservim/nerdtree'
+
+  " this call also executes `filetype plugin indent on` and `syntax on`
+call plug#end()
+
 " FZF Vim integration
 "set rtp+=/usr/bin/fzf
 

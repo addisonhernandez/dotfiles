@@ -81,7 +81,7 @@ set wrapscan    " search wraps around end-of-file
 "set hlsearch    " keeps matches highlighted
 
 " Unbind some useless/annoying default key bindings.
-nmap Q <Nop>            " Enters Ex mode. You almost never want this.
+nmap Q <Nop>    " Enters Ex mode. You almost never want this.
 
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
@@ -89,11 +89,7 @@ set noerrorbells visualbell t_vb=
 " Enable mouse support.
 set mouse+=a
 
-" Try to prevent bad habits like using the arrow keys for movement. This is
-" not the only possible bad habit. For example, holding down the h/j/k/l keys
-" for movement, rather than using more efficient movement commands, is also a
-" bad habit. The former is enforceable through a .vimrc, while we don't know
-" how to prevent the latter.
+" Try to prevent bad habits like using the arrow keys for movement
 " Do this in normal mode...
 nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>

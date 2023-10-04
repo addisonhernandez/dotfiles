@@ -11,11 +11,12 @@
 [alias]
 	co = checkout
 	ci = commit
+	civ = commit --verbose
 	st = status
 	br = branch
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-        logadog = log --all --decorate --oneline --graph
-        freeze = update-index --skip-worktree
+	logadog = log --all --decorate --oneline --graph
+	freeze = update-index --skip-worktree
 	type = cat-file -t
 	dump = cat-file -p
 [credential]

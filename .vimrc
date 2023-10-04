@@ -1,13 +1,12 @@
 " Initial .vimrc based on recommendations from MIT's missing-semester course.
 " Additional inspiration from vim-galore's minimal-vimrc
 
-" Vim is based on Vi. Setting `nocompatible` switches from the default
-" Vi-compatibility mode and enables useful Vim functionality. This
-" configuration option turns out not to be necessary for the file named
-" '~/.vimrc', because Vim automatically enters nocompatible mode if that file
-" is present. But we're including it here just in case this config file is
-" loaded some other way (e.g. saved as `foo`, and then Vim started with
-" `vim -u foo`).
+" Setting `nocompatible` switches from the default Vi-compatibility mode and
+" enables useful Vim functionality. This configuration option turns out not to
+" be necessary for the file named '~/.vimrc', because Vim automatically enters
+" nocompatible mode if that file is present. But I'm including it here just in
+" case this config file is loaded some other way (e.g. saved as `foo`, and then
+" Vim started with `vim -u foo`).
 set nocompatible
 
 " Enable true color and a colorscheme
@@ -22,26 +21,27 @@ colorscheme gruvbox
 " Background Color Erase fix for kitty terminal emulator
 let &t_ut=''
 
-set list		" Show non-printable characters.
+" Show non-printable characters.
+set list
 if has('multi_byte') && &encoding ==# 'utf-8'
   let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
 else
   let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
 endif
 
-set ttyfast		" fast(er) redrawing
-set lazyredraw		" only redraw when necessary
+set ttyfast     " fast(er) redrawing
+set lazyredraw  " only redraw when necessary
 
 " Turn on syntax highlighting.
 syntax on
 filetype plugin indent on " Load plugins according to detected filetype
 
 " Auto-indent
-set autoindent 		" Indent according to previous line
-set expandtab		" Uses spaces instead of tabs
-set softtabstop=4	" Tab key inserts 4 spaces
-set shiftwidth=4	" >> indents by 4 spaces
-set shiftround		" >> indents to next multiple of 'shiftwidth'
+set autoindent      " Indent according to previous line
+set expandtab       " Uses spaces instead of tabs
+set softtabstop=4   " Tab key inserts 4 spaces
+set shiftwidth=4    " >> indents by 4 spaces
+set shiftround      " >> indents to next multiple of 'shiftwidth'
 
 " Disable the default Vim startup message.
 set shortmess+=I
@@ -52,9 +52,6 @@ set number
 " This enables relative line numbering mode. With both number and
 " relativenumber enabled, the current line shows the true line number, while
 " all other lines (above and below) are numbered relative to the current line.
-" This is useful because you can tell, at a glance, what count is needed to
-" jump up or down to a particular line, by {count}k to go up or {count}j to go
-" down.
 set relativenumber
 
 " Always show the status line at the bottom, even if you only have one window open.
@@ -79,9 +76,9 @@ set hidden
 set ignorecase
 set smartcase
 
-set incsearch		" highlights as you search with / or ?
-set hlsearch		" keeps matches highlighted
-set wrapscan		" search wraps around end-of-file
+set incsearch   " highlights as you search with / or ?
+set wrapscan    " search wraps around end-of-file
+"set hlsearch    " keeps matches highlighted
 
 " Unbind some useless/annoying default key bindings.
 nmap Q <Nop>            " Enters Ex mode. You almost never want this.

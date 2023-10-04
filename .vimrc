@@ -19,6 +19,8 @@ endif
 let g:gruvbox_contrast_dark = 'hard'
 set background=dark
 colorscheme gruvbox
+" Background Color Erase fix for kitty terminal emulator
+let &t_ut=''
 
 set list		" Show non-printable characters.
 if has('multi_byte') && &encoding ==# 'utf-8'

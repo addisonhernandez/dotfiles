@@ -123,6 +123,10 @@ call plug#begin()
   " NERDTree file system explorer
   Plug 'preservim/nerdtree'
 
+  " Tim Pope plugins
+  Plug 'tpope/vim-fugitive'  " git plugin
+  Plug 'tpope/vim-surround'
+
   " this call also executes `filetype plugin indent on` and `syntax on`
 call plug#end()
 

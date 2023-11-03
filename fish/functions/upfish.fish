@@ -38,20 +38,20 @@ function upfish --description "Update system packages and tools all at once"
     end
 
     function _cleanup --description "Clean up upgrade artifacts"
-        if test -s $error_log
-            echo (set_color $fish_color_error)"Errors found:"(set_color normal)
-            batcat $error_log
-        end
-        rm $error_log
-
         if set --query _flag_noclean
             _print_header "Updates completed"
         else
             _print_header "Updates completed, performing cleanup"
-            echo -n "Unused packages: " && sudo nala autoremove --assume-yes
-            echo -n "Apt cache:       " && sudo nala clean
-            echo -n "Unused flatpaks: " && flatpak uninstall --unused --assumeyes
+            echo -n "Unused packages:       " && sudo nala autoremove --assume-yes
+            echo -n "Apt cache:             " && sudo nala clean
+            echo -n "Unused flatpaks:       " && flatpak uninstall --unused --assumeyes
         end
+
+        if test -s $error_log
+            echo (set_color $fish_color_error)"Errors found:"(set_color normal)
+            batcat $error_log
+        end
+        echo -n "Removing temp files:   " && ( rm $error_log && echo "Done" )
 
         echo "" # Leave the prompt looking cleaner
     end

@@ -39,7 +39,9 @@ else if contains $HOME $Z_EXCLUDE
     set Z_EXCLUDE (string replace -r -- "^$HOME\$" '^'$HOME'$$' $Z_EXCLUDE)
 end
 
-set -p Z_EXCLUDE "/\.temp"
+if not contains "/\.temp" $Z_EXCLUDE
+    set -p Z_EXCLUDE "/\.temp"
+end
 
 # Setup completions once first
 __z_complete

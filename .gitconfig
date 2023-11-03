@@ -3,6 +3,7 @@
 	email = addison.hernandez@gmail.com
 [core]
 	editor = vim
+	pager = delta
 	autocrlf = input
 	safecrlf = true
 	excludesfile = /home/addison/.gitignore_global
@@ -26,3 +27,12 @@
 	useHttpPath = true
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	syntax-theme = gruvbox-dark
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default

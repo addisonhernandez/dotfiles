@@ -49,7 +49,7 @@ function upfish --description "Update system packages and tools all at once"
 
         if test -s $error_log
             echo (set_color $fish_color_error)"Errors found:"(set_color normal)
-            batcat $error_log
+            bat $error_log
         end
         echo -n "Removing temp files:   " && ( rm $error_log && echo "Done" )
 

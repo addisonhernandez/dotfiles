@@ -51,7 +51,12 @@ function upfish --description "Update system packages and tools all at once"
             echo (set_color $fish_color_error)"Errors found:"(set_color normal)
             bat $error_log
         end
-        echo -n "Removing temp files:   " && ( rm $error_log && echo "Done" )
+        echo -n "Removing temp files:   "
+        rm $error_log; and echo "Done"
+
+        echo -n "Cleaning /tmp dir:     "
+        fd --type file --changed-before 2days --owner !root . /tmp --exec-batch rm
+        and echo "Done"
 
         echo "" # Leave the prompt looking cleaner
     end

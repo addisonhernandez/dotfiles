@@ -65,7 +65,7 @@ function upfish --description "Update system packages and tools all at once"
         return 0
     end
 
-    if test $EUID -ne 0
+    if not fish_is_root_user
         sudo echo -n ""
     end
 

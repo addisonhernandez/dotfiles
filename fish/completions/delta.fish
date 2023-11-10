@@ -1,0 +1,1 @@
+/home/addison/.cargo/registry/src/index.crates.io-6f17d22bba15001f/git-delta-0.16.5/etc/completion/completion.fish

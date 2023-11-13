@@ -7,10 +7,11 @@ function upfish --description "Update system packages and tools all at once"
 
     Options:
         When run with no options, prompt for input at the appropriate times
-        -h | --help     Print this help message and exit
-        -C | --noclean  Skip the package cleanup routine
-        -y | --yes      Proceed with package install or upgrade without prompting
-        -c | --cargo    Update cargo packages
+        -h | --help             Print this help message and exit
+        -C | --noclean          Skip the package cleanup routine
+        -y | --yes              Proceed with package install or upgrade without prompting
+        -c | --cargo            Update cargo packages
+        -F | --prompt-flatpak   Prompt for flatpak install or upgrade
     "
 
     function _print_header \
@@ -52,18 +53,18 @@ function upfish --description "Update system packages and tools all at once"
             bat $error_log
         end
         echo -n "Removing temp files:   "
-        rm $error_log; and echo Done
+        rm $error_log; and echo Removed
 
         echo -n "Cleaning /tmp dir:     "
         fd --type file --changed-before 2days --owner !root . /tmp --exec-batch rm
-        and echo Done
+        and echo Cleaned
 
         echo "" # Leave the prompt looking cleaner
     end
 
     ## Args ##
 
-    argparse h/help C/noclean y/yes c/cargo -- $argv; or return
+    argparse h/help C/noclean y/yes c/cargo F/prompt-flatpak -- $argv; or return
 
     if set --query _flag_help
         echo $USAGE
@@ -93,7 +94,7 @@ function upfish --description "Update system packages and tools all at once"
     _print_header "Upgrading Flatpak Packages"
 
     set -l _upgrade_flatpak flatpak update
-    if set --query _flag_yes
+    if not set --query _flag_prompt-flatpak
         set -a _upgrade_flatpak --assumeyes
     end
 

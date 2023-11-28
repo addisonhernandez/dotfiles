@@ -119,7 +119,7 @@ function upfish --description "Update system packages and tools all at once"
         _print_header "Upgrading Rust Packages"
         cargo install (
             cargo install --list \
-                | grep --invert-match "^\s" \
+                | grep --invert-match --extended-regexp "(^\s|\(.*\))" \
                 | cut --fields 1 --delimiter ' '
         )
     end

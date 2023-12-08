@@ -1,7 +1,5 @@
 function upfish --description "Update system packages and tools all at once"
 
-    ## Helpers ##
-
     set USAGE "
     Usage: $(set_color --bold $fish_color_command)upfish$(set_color --bold $fish_color_param) [OPTION...]$(set_color normal)
 
@@ -14,12 +12,29 @@ function upfish --description "Update system packages and tools all at once"
         -F | --prompt-flatpak   Prompt for flatpak install or upgrade
     "
 
+    ## Args ##
+
+    argparse h/help C/noclean y/yes c/cargo F/prompt-flatpak -- $argv; or return
+
+    if set --query _flag_help
+        echo $USAGE
+        return 0
+    end
+
+    if not fish_is_root_user
+        sudo echo -n ""
+    end
+
+    set --function --export error_log (mktemp)
+
+    ## Helpers ##
+
     function _print_header \
         --argument-names message \
         --description "Print a message surrounded with #"
 
-        set -l header "#  $message  #"
-        set -l padding (string repeat --count (string length $header) "#")
+        set --local header "#  $message  #"
+        set --local padding (string repeat --count (string length $header) "#")
 
         echo -e (set_color $fish_color_quote)"\n\t$padding\n\t$header\n\t$padding\n"(set_color normal)
     end
@@ -62,75 +77,83 @@ function upfish --description "Update system packages and tools all at once"
         echo "" # Leave the prompt looking cleaner
     end
 
-    ## Args ##
+    ## Upgrade Routines ##
 
-    argparse h/help C/noclean y/yes c/cargo F/prompt-flatpak -- $argv; or return
+    function upgrade_apt \
+        --inherit-variable _flag_yes
 
-    if set --query _flag_help
-        echo $USAGE
-        return 0
+        _print_header "Upgrading Apt Packages"
+
+        set --local _upgrade_apt sudo nala upgrade
+        if set --query _flag_yes
+            set --append _upgrade_apt --assume-yes
+        end
+
+        _ensure $_upgrade_apt
     end
 
-    if not fish_is_root_user
-        sudo echo -n ""
+    function upgrade_flatpak \
+        --inherit-variable _flag_prompt_flatpak
+
+        _print_header "Upgrading Flatpak Packages"
+
+        set --local _upgrade_flatpak flatpak update
+        if not set --query _flag_prompt_flatpak
+            set --append _upgrade_flatpak --assumeyes
+        end
+
+        _ensure $_upgrade_flatpak
     end
 
-    set -fx error_log (mktemp)
+    function upgrade_docker
+        _print_header "Upgrading Docker Images"
+
+        set --local _update_docker_images bash /home/addison/homelab/update_all_images.sh
+
+        _ensure $_update_docker_images
+    end
+
+    function upgrade_rust \
+        --inherit-variable _flag_cargo
+
+        _print_header "Upgrading Rust Toolchains"
+
+        set --local _update_rust rustup update
+        _ensure $_update_rust
+
+        if set --query _flag_cargo
+            _print_header "Upgrading Rust Packages"
+            cargo install (
+                cargo install --list \
+                    | grep --invert-match --extended-regexp "(^\s|\(.*\))" \
+                    | cut --fields 1 --delimiter ' '
+            )
+        end
+    end
+
+    function upgrade_tldr
+        _print_header "Upgrading tldr Cache"
+
+        set --local _update_tldr tldr --update
+        _ensure $_update_tldr
+    end
 
     ## Main ##
 
-    # apt
-    _print_header "Upgrading Apt Packages"
+    upgrade_apt
+    or return $status
 
-    set -l _upgrade_apt sudo nala upgrade
-    if set --query _flag_yes
-        set -a _upgrade_apt --assume-yes
-    end
+    upgrade_flatpak
+    or return $status
 
-    _ensure $_upgrade_apt
+    upgrade_docker
+    or return $status
 
+    upgrade_rust
+    or return $status
 
-    # flatpak
-    _print_header "Upgrading Flatpak Packages"
-
-    set -l _upgrade_flatpak flatpak update
-    if not set --query _flag_prompt-flatpak
-        set -a _upgrade_flatpak --assumeyes
-    end
-
-    _ensure $_upgrade_flatpak
-
-
-    # docker
-    _print_header "Upgrading Docker Images"
-
-    set -l _update_docker_images bash /home/addison/homelab/update_all_images.sh
-
-    _ensure $_update_docker_images
-
-
-    # rust toolchains
-    _print_header "Upgrading Rust Toolchains"
-
-    set -l _update_rust rustup update
-    _ensure $_update_rust
-
-    if set --query _flag_cargo
-        _print_header "Upgrading Rust Packages"
-        cargo install (
-            cargo install --list \
-                | grep --invert-match --extended-regexp "(^\s|\(.*\))" \
-                | cut --fields 1 --delimiter ' '
-        )
-    end
-
-
-    # tldr
-    _print_header "Upgrading tldr Cache"
-
-    set -l _update_tldr tldr --update
-    _ensure $_update_tldr
-
+    upgrade_tldr
+    or return $status
 
     ## Cleanup ##
     _cleanup

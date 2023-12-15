@@ -1,0 +1,7 @@
+gui:
+  timeFormat: '02 Jan 2006'
+  shortTimeFormat: '15:04'
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never

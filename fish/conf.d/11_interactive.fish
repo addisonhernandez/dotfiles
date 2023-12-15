@@ -5,5 +5,9 @@ if status is-interactive
     # Set vim as default editor
     set -gx EDITOR $(command -v vim)
     set -gx VISUAL $(command -v vim)
+
+    # Add fzf key bindings
+    command -q fzf
+    and source /usr/share/fzf/shell/key-bindings.fish
 end
 

@@ -58,8 +58,8 @@ function upfish --description "Update system packages and tools all at once"
             _print_header "Updates completed"
         else
             _print_header "Updates completed, performing cleanup"
-            echo -n "Unused packages:       " && sudo nala autoremove --assume-yes
-            echo -n "Apt cache:             " && sudo nala clean
+            echo -n "Unused packages:       " && sudo dnf autoremove --assumeyes
+            echo -n "DNF cache:             " && sudo dnf clean
             echo -n "Unused flatpaks:       " && flatpak uninstall --unused --assumeyes
         end
 
@@ -71,7 +71,7 @@ function upfish --description "Update system packages and tools all at once"
         rm $error_log; and echo Removed
 
         echo -n "Cleaning /tmp dir:     "
-        fd --type file --changed-before 2days --owner !root . /tmp --exec-batch rm
+        fd --type file --changed-before 2days --owner addison . /tmp --exec-batch rm
         and echo Cleaned
 
         echo "" # Leave the prompt looking cleaner
@@ -79,17 +79,17 @@ function upfish --description "Update system packages and tools all at once"
 
     ## Upgrade Routines ##
 
-    function upgrade_apt \
+    function upgrade_dnf \
         --inherit-variable _flag_yes
 
-        _print_header "Upgrading Apt Packages"
+        _print_header "Upgrading DNF Packages"
 
-        set --local _upgrade_apt sudo nala upgrade
+        set --local _upgrade_dnf sudo dnf upgrade
         if set --query _flag_yes
-            set --append _upgrade_apt --assume-yes
+            set --append _upgrade_dnf --assumeyes
         end
 
-        _ensure $_upgrade_apt
+        _ensure $_upgrade_dnf
     end
 
     function upgrade_flatpak \
@@ -140,7 +140,7 @@ function upfish --description "Update system packages and tools all at once"
 
     ## Main ##
 
-    upgrade_apt
+    upgrade_dnf
     or return $status
 
     upgrade_flatpak

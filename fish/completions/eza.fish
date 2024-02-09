@@ -1,1 +1,1 @@
-/home/addison/.cargo/registry/src/index.crates.io-6f17d22bba15001f/eza-0.17.0/completions/fish/eza.fish
+/home/addison/.cargo/registry/src/index.crates.io-6f17d22bba15001f/eza-0.18.2/completions/fish/eza.fish

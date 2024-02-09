@@ -29,16 +29,6 @@ function upfish --description "Update system packages and tools all at once"
 
     ## Helpers ##
 
-    function _print_header \
-        --argument-names message \
-        --description "Print a message surrounded with #"
-
-        set --local header "#  $message  #"
-        set --local padding (string repeat --count (string length $header) "#")
-
-        echo -e (set_color $fish_color_quote)"\n\t$padding\n\t$header\n\t$padding\n"(set_color normal)
-    end
-
     function _print_error \
         --argument-names message \
         --description "Log an error message to stdout, stderr, and a log file"
@@ -55,11 +45,11 @@ function upfish --description "Update system packages and tools all at once"
 
     function _cleanup --description "Clean up upgrade artifacts"
         if set --query _flag_noclean
-            _print_header "Updates completed"
+            __print_header "Updates completed"
         else
-            _print_header "Updates completed, performing cleanup"
+            __print_header "Updates completed, performing cleanup"
             echo -n "Unused packages:       " && sudo dnf autoremove --assumeyes
-            echo -n "DNF cache:             " && sudo dnf clean
+            #echo -n "DNF cache:             " && sudo dnf clean
             echo -n "Unused flatpaks:       " && flatpak uninstall --unused --assumeyes
         end
 
@@ -82,7 +72,7 @@ function upfish --description "Update system packages and tools all at once"
     function upgrade_dnf \
         --inherit-variable _flag_yes
 
-        _print_header "Upgrading DNF Packages"
+        __print_header "Upgrading DNF Packages"
 
         set --local _upgrade_dnf sudo dnf upgrade
         if set --query _flag_yes
@@ -95,7 +85,7 @@ function upfish --description "Update system packages and tools all at once"
     function upgrade_flatpak \
         --inherit-variable _flag_prompt_flatpak
 
-        _print_header "Upgrading Flatpak Packages"
+        __print_header "Upgrading Flatpak Packages"
 
         set --local _upgrade_flatpak flatpak update
         if not set --query _flag_prompt_flatpak
@@ -106,7 +96,7 @@ function upfish --description "Update system packages and tools all at once"
     end
 
     function upgrade_docker
-        _print_header "Upgrading Docker Images"
+        __print_header "Upgrading Docker Images"
 
         set --local _update_docker_images bash /home/addison/homelab/update_all_images.sh
 
@@ -116,23 +106,17 @@ function upfish --description "Update system packages and tools all at once"
     function upgrade_rust \
         --inherit-variable _flag_cargo
 
-        _print_header "Upgrading Rust Toolchains"
+        set --local _update_rust update_cargo_binaries
 
-        set --local _update_rust rustup update
-        _ensure $_update_rust
-
-        if set --query _flag_cargo
-            _print_header "Upgrading Rust Packages"
-            cargo install (
-                cargo install --list \
-                    | grep --invert-match --extended-regexp "(^\s|\(.*\))" \
-                    | cut --fields 1 --delimiter ' '
-            )
+        if not set --query _flag_cargo
+            set --append _update_rust --skip
         end
+
+        _ensure $_update_rust
     end
 
     function upgrade_tldr
-        _print_header "Upgrading tldr Cache"
+        __print_header "Upgrading tldr Cache"
 
         set --local _update_tldr tldr --update
         _ensure $_update_tldr

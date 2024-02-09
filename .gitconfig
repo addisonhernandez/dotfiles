@@ -19,3 +19,7 @@
 	freeze = update-index --skip-worktree
 [init]
 	defaultBranch = main
+[commit]
+	verbose = true
+[fetch]
+	prune = true

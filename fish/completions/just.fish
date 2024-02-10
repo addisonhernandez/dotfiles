@@ -1,1 +1,0 @@
-/home/addison/.cargo/registry/src/index.crates.io-6f17d22bba15001f/just-1.16.0/completions/just.fish

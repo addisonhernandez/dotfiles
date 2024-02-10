@@ -1,1 +1,0 @@
-/home/addison/.cargo/registry/src/index.crates.io-6f17d22bba15001f/bat-0.24.0/assets/completions/bat.fish.in

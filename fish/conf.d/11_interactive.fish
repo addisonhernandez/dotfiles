@@ -5,5 +5,10 @@ if status is-interactive
     # Set vim as default editor
     set -gx EDITOR $(command -v vim)
     set -gx VISUAL $(command -v vim)
+
+    # Use Atuin shell history tool, if installed
+    if command -q atuin
+        atuin init fish | source
+    end
 end
 

@@ -1,13 +1,14 @@
 # Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -51,7 +52,7 @@
       options = "caps:escape_shifted_capslock";
     };
   };
-  
+
   # Duplicate X11 keymap in console (tty)
   console.useXkbConfig = true;
 
@@ -82,7 +83,7 @@
   users.users.addison = {
     isNormalUser = true;
     description = "Addison";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
   };
 
   # Allow unfree packages
@@ -114,7 +115,9 @@
   ];
 
   # Move configuration.nix & hardware-configuration.nix to the dotfiles directory
-  environment.etc = let dotfilesDir = "/home/addison/.config/dotfiles"; in {
+  environment.etc = let
+    dotfilesDir = "/home/addison/.config/dotfiles";
+  in {
     "nixos/configuration.nix".source = "${dotfilesDir}/nixos/configuration.nix";
     "nixos/hardware-configuration.nix".source = "${dotfilesDir}/nixos/hardware-configuration.nix";
   };
@@ -131,7 +134,7 @@
     ];
     fontconfig = {
       defaultFonts = {
-        monospace = [ "FiraCode Nerd Font" "Source Code Pro" "Monospace" ];
+        monospace = ["FiraCode Nerd Font" "Source Code Pro" "Monospace"];
       };
     };
   };
@@ -165,5 +168,5 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
   # Enable experimental flake functionality
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 }

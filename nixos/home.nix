@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "addison";
@@ -34,10 +36,9 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  home.file =
-    let
-      dotfilesDir = "/home/addison/.config/dotfiles";
-    in {
+  home.file = let
+    dotfilesDir = "/home/addison/.config/dotfiles";
+  in {
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -81,7 +82,7 @@
     bash = {
       enable = true;
       enableCompletion = true;
-      shellAliases = { 
+      shellAliases = {
         ls = "ls --color=auto";
         lx = "ls -lhAXF --group-directories-first";
       };
@@ -103,12 +104,12 @@
       userEmail = "addison.hernandez@gmail.com";
       aliases = {
         co = "checkout";
-	ci = "commit";
-	civ = "commit --verbose";
-	st = "status";
-	br = "branch";
-	logadog = "log --all --decorate --oneline --graph";
-	freeze = "update-index --skip-worktree";
+        ci = "commit";
+        civ = "commit --verbose";
+        st = "status";
+        br = "branch";
+        logadog = "log --all --decorate --oneline --graph";
+        freeze = "update-index --skip-worktree";
       };
       ignores = [
         "*~"
@@ -124,7 +125,7 @@
       };
     };
   };
-  
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

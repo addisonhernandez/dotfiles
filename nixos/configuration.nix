@@ -105,6 +105,10 @@
     just
     tealdeer
 
+    gnumake
+    unzip
+    libgcc
+
     # GNOME Extensions
     gnomeExtensions.appindicator
     gnomeExtensions.blur-my-shell

@@ -20,6 +20,7 @@
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
+    formatter.${system} = pkgs.alejandra;
     nixosConfigurations = {
       hedgehog = lib.nixosSystem {
         inherit system;

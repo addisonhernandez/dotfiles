@@ -53,8 +53,6 @@
     ".config/kitty/kitty.conf".source = "${dotfilesDir}/kitty.conf";
 
     ".config/ranger/rc.conf".source = "${dotfilesDir}/ranger/rc.conf";
-
-    #".config/nvim/init.vim".source = "${dotfilesDir}/nvim/init.vim";
   };
 
   # Home Manager can also manage your environment variables through
@@ -83,8 +81,8 @@
       enable = true;
       enableCompletion = true;
       shellAliases = {
-        ls = "ls --color=auto";
-        lx = "ls -lhAXF --group-directories-first";
+        ls = "eza --color=auto";
+        lx = "eza -lhAXF --group-directories-first";
       };
     };
 
@@ -96,6 +94,11 @@
     starship = {
       enable = true;
       enableTransience = true;
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
 
     git = {
@@ -121,6 +124,26 @@
         options = {
           navigate = "true";
           syntax-theme = "gruvbox-dark";
+        };
+      };
+      extraConfig = {
+        init = {
+          defaultBranch = "main";
+        };
+        help = {
+          autocorrect = "50";
+        };
+        merge = {
+          conflictStyle = "diff3";
+        };
+        diff = {
+          colorMoved = "default";
+        };
+        fetch = {
+          prune = "true";
+        };
+        commit = {
+          verbose = "true";
         };
       };
     };

@@ -124,10 +124,12 @@
   environment.etc = let
     nixConfDir = "/home/addison/.config/dotfiles/nixos";
   in {
+    # TODO: figure out how to link all files in ...dotfiles/nixos to /etc/nixos
     "nixos/configuration.nix".source = "${nixConfDir}/configuration.nix";
     "nixos/hardware-configuration.nix".source = "${nixConfDir}/hardware-configuration.nix";
     "nixos/flake.nix".source = "${nixConfDir}/flake.nix";
     "nixos/flake.lock".source = "${nixConfDir}/flake.lock";
+    "nixos/home.nix".source = "${nixConfDir}/home.nix";
   };
 
   # Install some fonts

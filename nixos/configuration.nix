@@ -97,6 +97,7 @@
     pop-launcher
 
     # CLI/TUI
+    fish
     ranger
     bat
     eza

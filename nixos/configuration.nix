@@ -108,6 +108,7 @@
     gnumake
     unzip
     libgcc
+    gcc
 
     # GNOME Extensions
     gnomeExtensions.appindicator

@@ -121,11 +121,12 @@
 
   # Move configuration.nix & hardware-configuration.nix to the dotfiles directory
   environment.etc = let
-    dotfilesDir = "/home/addison/.config/dotfiles/nixos";
+    nixConfDir = "/home/addison/.config/dotfiles/nixos";
   in {
-    "nixos/configuration.nix".source = "${dotfilesDir}/configuration.nix";
-    "nixos/hardware-configuration.nix".source = "${dotfilesDir}/hardware-configuration.nix";
-    "nixos/flake.nix".source = "${dotfilesDir}/flake.nix";
+    "nixos/configuration.nix".source = "${nixConfDir}/configuration.nix";
+    "nixos/hardware-configuration.nix".source = "${nixConfDir}/hardware-configuration.nix";
+    "nixos/flake.nix".source = "${nixConfDir}/flake.nix";
+    "nixos/flake.lock".source = "${nixConfDir}/flake.lock";
   };
 
   # Install some fonts

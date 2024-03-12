@@ -86,7 +86,11 @@
       };
     };
 
-    fish.enable = true;
+    fish = {
+      enable = true;
+      interactiveShellInit = "set --global --export SHELL (command -v fish)";
+    };
+
     fzf.enable = true;
     zoxide.enable = true;
     ripgrep.enable = true;

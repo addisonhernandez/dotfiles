@@ -36,8 +36,8 @@
   home.file = let
     dotfilesDir = "${config.home.homeDirectory}/.config/dotfiles";
   in {
-    ".config/kitty/kitty.conf".source = "${dotfilesDir}/kitty.conf";
-    ".config/ranger/rc.conf".source = "${dotfilesDir}/ranger/rc.conf";
+    ".config/kitty/kitty.conf".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/kitty.conf";
+    ".config/ranger/rc.conf".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/ranger/rc.conf";
   };
 
   # Home Manager can also manage your environment variables through

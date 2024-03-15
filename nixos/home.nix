@@ -34,7 +34,7 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = let
-    dotfilesDir = "/home/addison/.config/dotfiles";
+    dotfilesDir = "${config.home.homeDirectory}/.config/dotfiles";
   in {
     ".config/kitty/kitty.conf".source = "${dotfilesDir}/kitty.conf";
     ".config/ranger/rc.conf".source = "${dotfilesDir}/ranger/rc.conf";

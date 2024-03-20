@@ -80,10 +80,20 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.addison = {
-    isNormalUser = true;
-    description = "Addison";
-    extraGroups = ["networkmanager" "wheel"];
+  users.users = {
+    addison = {
+      isNormalUser = true;
+      description = "Addison";
+      extraGroups = ["networkmanager" "wheel"];
+    };
+    audrey = {
+      isNormalUser = true;
+      description = "Audrey";
+      extraGroups = ["networkmanager" "wheel"];
+      createHome = true;
+      home = "/home/audrey";
+      initialHashedPassword = "$y$j9T$/Ykp57kEluftnhkpGhKYZ/$4zBK6y1/WGlbG/lrF.G3u5bdn5XdgAbV6SAH5Q.f1W/";
+    };
   };
 
   # Allow unfree packages
@@ -92,7 +102,7 @@
   # Install some stuff
   environment.systemPackages = with pkgs; [
     firefox
-    vivaldi
+    # vivaldi
     kitty
     pop-launcher
 

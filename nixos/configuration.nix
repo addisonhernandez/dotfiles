@@ -105,6 +105,7 @@
     kitty
     pop-launcher
     wireguard-tools
+    qbittorrent
 
     # CLI/TUI
     fish

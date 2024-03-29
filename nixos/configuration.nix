@@ -102,9 +102,9 @@
   # Install some stuff
   environment.systemPackages = with pkgs; [
     firefox
-    # vivaldi
     kitty
     pop-launcher
+    wireguard-tools
 
     # CLI/TUI
     fish
@@ -116,6 +116,10 @@
     just
     tealdeer
 
+    xclip
+    xsel
+
+    # Build tools
     gnumake
     unzip
     libgcc

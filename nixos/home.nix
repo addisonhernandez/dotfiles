@@ -80,6 +80,7 @@
     zoxide.enable = true;
     ripgrep.enable = true;
     jq.enable = true;
+    btop.enable = true;
 
     starship = {
       enable = true;

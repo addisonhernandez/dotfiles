@@ -136,6 +136,21 @@
 
     gnome.gnome-tweaks
     gnome.sushi
+
+    # System theming
+    (catppuccin-gtk.override {
+      # [ "blue" "flamingo" "green" "lavender" "maroon" "mauve" "peach" "pink" "red" "rosewater" "sapphire" "sky" "teal" "yellow" ]
+      accents = ["mauve"]; # ? ["blue"]
+
+      # [ "standard" "compact" ]
+      # size = "compact"; # ? "standard"
+
+      # [ "black" "rimless" "normal" ]
+      tweaks = [ "rimless" "normal" ]; # ? [ ]
+
+      # [ "latte" "frappe" "macchiato" "mocha" ]
+      variant = "macchiato"; # ? "frappe"
+    })
   ];
 
   # Move configuration.nix & hardware-configuration.nix to the dotfiles directory

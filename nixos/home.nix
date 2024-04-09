@@ -114,10 +114,14 @@
         enable = true;
         options = {
           navigate = "true";
-          syntax-theme = "gruvbox-dark";
+          # syntax-theme = "gruvbox-dark";
+          features = "catppuccin-macchiato";
         };
       };
       extraConfig = {
+        include = {
+          path = "$HOME/.themes/delta/catppuccin.gitconfig";
+        };
         init = {
           defaultBranch = "main";
         };

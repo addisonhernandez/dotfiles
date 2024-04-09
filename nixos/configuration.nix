@@ -133,6 +133,9 @@
     gnomeExtensions.dash-to-dock
     gnomeExtensions.pop-shell
     gnomeExtensions.vitals
+
+    gnome.gnome-tweaks
+    gnome.sushi
   ];
 
   # Move configuration.nix & hardware-configuration.nix to the dotfiles directory

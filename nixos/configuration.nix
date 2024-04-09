@@ -146,7 +146,7 @@
       # size = "compact"; # ? "standard"
 
       # [ "black" "rimless" "normal" ]
-      tweaks = [ "rimless" "normal" ]; # ? [ ]
+      tweaks = ["rimless" "normal"]; # ? [ ]
 
       # [ "latte" "frappe" "macchiato" "mocha" ]
       variant = "macchiato"; # ? "frappe"

@@ -35,9 +35,20 @@
   # plain files is through 'home.file'.
   home.file = let
     dotfilesDir = "${config.home.homeDirectory}/.config/dotfiles";
+    themeDir = "${config.home.homeDirectory}/.themes/Catppuccin-Macchiato-Standard-Mauve-Dark/gtk-4.0";
   in {
-    ".config/kitty/kitty.conf".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/kitty.conf";
-    ".config/ranger/rc.conf".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/ranger/rc.conf";
+    ".config/kitty/kitty.conf".source =
+      config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/kitty.conf";
+    ".config/ranger/rc.conf".source =
+      config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/ranger/rc.conf";
+
+    # Use gtk theme with GTK 4 apps
+    ".config/gtk-4.0/assets".source =
+      config.lib.file.mkOutOfStoreSymlink "${themeDir}/assets";
+    ".config/gtk-4.0/gtk.css".source =
+      config.lib.file.mkOutOfStoreSymlink "${themeDir}/gtk.css";
+    ".config/gtk-4.0/gtk-dark.css".source =
+      config.lib.file.mkOutOfStoreSymlink "${themeDir}/gtk-dark.css";
   };
 
   # Home Manager can also manage your environment variables through
@@ -52,7 +63,8 @@
   #  /etc/profiles/per-user/addison/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
 
   programs = {

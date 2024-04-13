@@ -139,14 +139,15 @@
 
     # System theming
     (catppuccin-gtk.override {
-      # [ "blue" "flamingo" "green" "lavender" "maroon" "mauve" "peach" "pink" "red" "rosewater" "sapphire" "sky" "teal" "yellow" ]
+      # [ "blue" "flamingo" "green" "lavender" "maroon" "mauve" "peach"
+      #   "pink" "red" "rosewater" "sapphire" "sky" "teal" "yellow" ]
       accents = ["mauve"]; # ? ["blue"]
 
       # [ "standard" "compact" ]
       # size = "compact"; # ? "standard"
 
       # [ "black" "rimless" "normal" ]
-      tweaks = ["rimless" "normal"]; # ? [ ]
+      tweaks = ["rimless" "normal" "black"]; # ? [ ]
 
       # [ "latte" "frappe" "macchiato" "mocha" ]
       variant = "macchiato"; # ? "frappe"

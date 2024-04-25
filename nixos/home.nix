@@ -105,6 +105,12 @@
       enableTransience = true;
     };
 
+    atuin = {
+      enable = true;
+      flags = ["--disable-up-arrow"];
+      settings = {};
+    };
+
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -164,11 +170,11 @@
     chromium = {
       enable = true;
       extensions = [
-        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
-        { id = "nngceckbapebfimnlniiiahkandclblb"; } # bitwarden
-        { id = "clngdbkpkpeebahjckkjfobafhncgmne"; } # stylus
-        { id = "fmkadmapgofadopljbjfkapdkoienihi"; } # react dev tools
-        { id = "jinjaccalgkegednnccohejagnlnfdag"; } # violentmonkey
+        {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} # ublock origin
+        {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden
+        {id = "clngdbkpkpeebahjckkjfobafhncgmne";} # stylus
+        {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react dev tools
+        {id = "jinjaccalgkegednnccohejagnlnfdag";} # violentmonkey
       ];
     };
   };

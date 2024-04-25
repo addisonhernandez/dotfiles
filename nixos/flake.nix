@@ -24,13 +24,13 @@
     nixosConfigurations = {
       hedgehog = lib.nixosSystem {
         inherit system;
-        modules = [./configuration.nix];
+        modules = [./system/configuration.nix];
       };
     };
     homeConfigurations = {
       addison = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [./home.nix];
+        modules = [./home-manager/home.nix];
       };
     };
   };

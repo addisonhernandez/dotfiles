@@ -4,7 +4,7 @@
   config,
   pkgs,
   ...
-}: {
+} @ inputs: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -156,15 +156,21 @@
 
   # Move configuration.nix & hardware-configuration.nix to the dotfiles directory
   environment.etc = let
-    nixConfDir = "/home/addison/.config/dotfiles/nixos";
-  in {
-    # TODO: figure out how to link all files in ...dotfiles/nixos to /etc/nixos
-    "nixos/configuration.nix".source = "${nixConfDir}/configuration.nix";
-    "nixos/hardware-configuration.nix".source = "${nixConfDir}/hardware-configuration.nix";
-    "nixos/flake.nix".source = "${nixConfDir}/flake.nix";
-    "nixos/flake.lock".source = "${nixConfDir}/flake.lock";
-    "nixos/home.nix".source = "${nixConfDir}/home.nix";
-  };
+    inherit (pkgs.lib) attrsets filesystem path strings;
+    dotfilesDir = /home/addison/.config/dotfiles;
+    nixConfDir = path.append dotfilesDir "nixos";
+    nixConfFiles = filesystem.listFilesRecursive nixConfDir;
+    rawAttrs = attrsets.genAttrs (map toString nixConfFiles) (attr: /. + attr);
+    trimDotfilesPrefix = strings.removePrefix ((toString dotfilesDir) + "/");
+    etcToDot =
+      attrsets.mapAttrs'
+      (name: val: attrsets.nameValuePair (trimDotfilesPrefix name) val)
+      rawAttrs;
+  in
+    attrsets.foldlAttrs
+    (acc: name: val: acc // {${name}.source = val;})
+    {}
+    etcToDot;
 
   # Install some fonts
   fonts = {

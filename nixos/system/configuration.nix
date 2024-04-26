@@ -156,21 +156,19 @@
 
   # Move configuration.nix & hardware-configuration.nix to the dotfiles directory
   environment.etc = let
-    inherit (pkgs.lib) attrsets filesystem path strings;
+    inherit (pkgs.lib) filesystem strings;
+
     dotfilesDir = /home/addison/.config/dotfiles;
-    nixConfDir = path.append dotfilesDir "nixos";
+    nixConfDir = dotfilesDir + /nixos;
+
     nixConfFiles = filesystem.listFilesRecursive nixConfDir;
-    rawAttrs = attrsets.genAttrs (map toString nixConfFiles) (attr: /. + attr);
+
     trimDotfilesPrefix = strings.removePrefix ((toString dotfilesDir) + "/");
-    etcToDot =
-      attrsets.mapAttrs'
-      (name: val: attrsets.nameValuePair (trimDotfilesPrefix name) val)
-      rawAttrs;
   in
-    attrsets.foldlAttrs
-    (acc: name: val: acc // {${name}.source = val;})
+    builtins.foldl'
+    (acc: elem: acc // {${trimDotfilesPrefix (toString elem)}.source = elem;})
     {}
-    etcToDot;
+    nixConfFiles;
 
   # Install some fonts
   fonts = {

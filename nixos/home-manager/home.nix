@@ -28,21 +28,18 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = let
-    dotfilesDir = "${config.home.homeDirectory}/.config/dotfiles";
-    themeDir = "${config.home.homeDirectory}/.themes/Catppuccin-Macchiato-Standard-Mauve-Dark/gtk-4.0";
+    homeDir = config.home.homeDirectory;
+    dotfilesDir = "${homeDir}/.config/dotfiles";
+    themeDir = "${homeDir}/.themes/Catppuccin-Macchiato-Standard-Mauve-Dark/gtk-4.0";
+    linkTo = config.lib.file.mkOutOfStoreSymlink;
   in {
-    ".config/kitty/kitty.conf".source =
-      config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/kitty.conf";
-    ".config/ranger/rc.conf".source =
-      config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/ranger/rc.conf";
+    ".config/kitty/kitty.conf".source = linkTo "${dotfilesDir}/kitty.conf";
+    ".config/ranger/rc.conf".source = linkTo "${dotfilesDir}/ranger/rc.conf";
 
     # Use gtk theme with GTK 4 apps
-    ".config/gtk-4.0/assets".source =
-      config.lib.file.mkOutOfStoreSymlink "${themeDir}/assets";
-    ".config/gtk-4.0/gtk.css".source =
-      config.lib.file.mkOutOfStoreSymlink "${themeDir}/gtk.css";
-    ".config/gtk-4.0/gtk-dark.css".source =
-      config.lib.file.mkOutOfStoreSymlink "${themeDir}/gtk-dark.css";
+    ".config/gtk-4.0/assets".source = linkTo "${themeDir}/assets";
+    ".config/gtk-4.0/gtk.css".source = linkTo "${themeDir}/gtk.css";
+    ".config/gtk-4.0/gtk-dark.css".source = linkTo "${themeDir}/gtk-dark.css";
   };
 
   home.sessionVariables = {
@@ -50,23 +47,37 @@
     VISUAL = "nvim";
   };
 
-  programs = {
-    atuin = import ./configs/atuin.nix;
-    bash = import ./configs/bash.nix;
-    chromium = import ./configs/chromium.nix;
-    direnv = import ./configs/direnv.nix;
-    fish = import ./configs/fish.nix;
-    git = import ./configs/git.nix;
-    neovim = import ./configs/neovim.nix;
-    starship = import ./configs/starship.nix;
+  programs = let
+    inherit (pkgs.lib.attrsets) genAttrs;
 
-    fzf.enable = true;
-    zoxide.enable = true;
-    ripgrep.enable = true;
-    jq.enable = true;
-    btop.enable = true;
-  };
+    # Map a list of program names to a set that enables them
+    # eg. enablePrograms [ "foo" ] -> { foo.enable = true; }
+    enablePrograms = progList: genAttrs progList (prog: {enable = true;});
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+    # Import configs from ./programs/<name>.nix
+    addProgram = name: import (./programs + "/${name}.nix");
+    addConfiguredPrograms = progList: genAttrs progList addProgram;
+  in
+    {
+      # Let Home Manager install and manage itself.
+      home-manager.enable = true;
+    }
+    // enablePrograms [
+      "btop"
+      "fzf"
+      "jq"
+      "ripgrep"
+      "zoxide"
+    ]
+    // addConfiguredPrograms [
+      # These require a config file at ./programs/<name>.nix
+      "atuin"
+      "bash"
+      "chromium"
+      "direnv"
+      "fish"
+      "git"
+      "neovim"
+      "starship"
+    ];
 }

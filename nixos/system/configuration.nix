@@ -163,7 +163,7 @@
 
     nixConfFiles = filesystem.listFilesRecursive nixConfDir;
 
-    trimDotfilesPrefix = strings.removePrefix ((toString dotfilesDir) + "/");
+    trimDotfilesPrefix = strings.removePrefix "${dotfilesDir}/";
   in
     builtins.foldl'
     (acc: elem: acc // {${trimDotfilesPrefix (toString elem)}.source = elem;})
@@ -196,7 +196,13 @@
   # };
 
   # List services that you want to enable:
-  services.flatpak.enable = true;
+  services = {
+    flatpak.enable = true;
+
+    devmon.enable = true;
+    gvfs.enable = true;
+    udisks2.enable = true;
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

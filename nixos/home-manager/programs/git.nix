@@ -10,6 +10,7 @@
     br = "branch";
     logadog = "log --all --decorate --oneline --graph";
     freeze = "update-index --skip-worktree";
+    rv = "remote --verbose";
   };
   ignores = [
     "*~"

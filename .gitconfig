@@ -1,3 +1,5 @@
+[include]
+	path = /home/addison/.config/delta/themes/catppuccin.gitconfig
 [user]
 	name = Addison Hernandez
 	email = addison.hernandez@gmail.com
@@ -6,6 +8,7 @@
 	autocrlf = input
 	safecrlf = true
 	excludesfile = /home/addison/.gitignore_global
+	pager = delta
 [help]
 	autocorrect = 50
 [alias]
@@ -23,3 +26,12 @@
 	verbose = true
 [fetch]
 	prune = true
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	features = catppuccin-macchiato
+	navigate = true
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default

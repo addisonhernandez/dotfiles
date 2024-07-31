@@ -69,6 +69,8 @@ function upfish --description "Update system packages and tools all at once"
 
     ## Upgrade Routines ##
 
+    set --function --erase upgrade_functions
+
     function upgrade_dnf \
         --inherit-variable _flag_yes
 
@@ -81,6 +83,7 @@ function upfish --description "Update system packages and tools all at once"
 
         _ensure $_upgrade_dnf
     end
+    set --append upgrade_functions upgrade_dnf
 
     function upgrade_flatpak \
         --inherit-variable _flag_prompt_flatpak
@@ -94,14 +97,16 @@ function upfish --description "Update system packages and tools all at once"
 
         _ensure $_upgrade_flatpak
     end
+    set --append upgrade_functions upgrade_flatpak
 
     function upgrade_docker
         __print_header "Upgrading Docker Images"
 
-        set --local _update_docker_images bash /home/addison/homelab/update_all_images.sh
+        set --local _update_docker_images bash /home/addison/homelab/update_lab_images.sh
 
         _ensure $_update_docker_images
     end
+    set --append upgrade_functions upgrade_docker
 
     function upgrade_rust \
         --inherit-variable _flag_cargo
@@ -114,6 +119,7 @@ function upfish --description "Update system packages and tools all at once"
 
         _ensure $_update_rust
     end
+    set --append upgrade_functions upgrade_rust
 
     function upgrade_tldr
         __print_header "Upgrading tldr Cache"
@@ -121,23 +127,14 @@ function upfish --description "Update system packages and tools all at once"
         set --local _update_tldr tldr --update
         _ensure $_update_tldr
     end
+    set --append upgrade_functions upgrade_tldr
 
     ## Main ##
 
-    upgrade_dnf
-    or return $status
-
-    upgrade_flatpak
-    or return $status
-
-    upgrade_docker
-    or return $status
-
-    upgrade_rust
-    or return $status
-
-    upgrade_tldr
-    or return $status
+    for fn in $upgrade_functions
+        $fn
+        or return $status
+    end
 
     ## Cleanup ##
     _cleanup
